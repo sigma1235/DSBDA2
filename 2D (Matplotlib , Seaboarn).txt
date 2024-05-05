@@ -1,0 +1,163 @@
+2D : Matplotlib & SEABORN
+
+FOR DATASET : FaceBook & Heart :
+
+import  matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+import pandas as pd
+import seaborn as sns
+import numpy as np
+
+
+df = pd.read_csv('dataset_Facebook.csv',sep=';')
+df.head(5)
+
+
+ts = df.groupby('Type')['share'].sum()
+ts 
+
+ts.plot.pie(label=('Type'), title = " PIE CHART",colormap='brg', autopct='%1.0f%%')
+
+
+ts = df.groupby('Type')['like'].sum()
+ts
+
+ts.plot.pie(label=('Type'), title = " PIE CHART WITH PERCENTAGE",colormap='brg', autopct='%1.0f%%')
+
+
+x=df['Type']
+y=df['share']
+plt.bar(x,y)
+plt.xlabel('Type')
+plt.ylabel('Total Share')
+plt.show
+
+
+plt.figure(figsize=(7,7))
+objects = ('January', 'February', 'March', 'April','May','June','July','August','September','October','November','December')
+y_pos = np.arange(len(objects))
+plt.bar(y_pos, df.loc[:,'Post Month'].value_counts().values)
+plt.xticks(y_pos, objects, rotation=70)
+plt.ylabel('Number of posts')
+plt.title('Number of posts for each month')
+
+
+plt.figure(figsize=(5,5))
+sns.countplot(x='Post Month',hue='Paid',data=df)
+plt.title("Number of posts: Free vs Paid per Month")
+plt.figure(figsize=(5,5)) 
+sns.countplot(x='Post Weekday',hue='Paid',data=df)
+plt.title("Number of posts: Free vs Paid per Weekday")
+
+
+sns.distplot(df['Page total likes'],bins=20)
+plt.title("Distribution of Total Page Likes")
+
+
+sns.countplot(df['Post Month'],palette='viridis')
+
+
+sns.lmplot(x='Page total likes',y='like',
+           hue='Paid',data=df,fit_reg=True,
+          scatter_kws={'alpha':0.6},size=(6))
+plt.legend()
+plt.ylim(0,1000)
+plt.ylabel("# of Likes")
+plt.title('# Page Likes vs. # Post Likes')
+
+
+plt.figure(figsize=(8,6))
+sns.boxplot(x=df['Category'],y=df['like'],data=df,palette='viridis')
+plt.ylim(0,750)
+plt.ylabel("# of Likes")
+plt.title("Number of Likes vs. Post Category")
+plt.savefig('catBox.png', bbox_inches='tight')
+
+
+plt.hist(df.loc[:,'comment'])
+plt.title("Comments per post distribution")
+
+
+df.isnull().sum()
+
+x=df['Post Weekday']
+y=df['comment']
+plt.scatter(x, y)
+
+
+sns.catplot(x='Type',y='share',data=df)
+
+
+x=df['share']
+y=df['like']
+plt.plot(x,y)
+plt.title("Linear graph", fontsize =25, color="green")
+plt.xlabel("X Data")
+plt.ylabel("Y Data")
+
+
+
+
+
+FOR DATASET : tips.csv :
+
+
+import  matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+
+
+x=[10, 20, 30, 40]
+y=[20, 25, 35, 55]
+
+
+fig = plt.figure(figsize =(5,4))
+ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+ax2 = fig.add_axes([1, 0.1, 0.8, 0.8])
+
+
+plt.plot(x,y)
+plt.title("Linear graph", fontsize =25, color="green")
+plt.xlabel("X Data")
+plt.ylabel("Y Data")
+
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+df = pd.read_csv('tips.csv')
+df.head()
+
+
+
+x=df['day']
+y=df['total_bill']
+plt.bar(x,y)
+plt.title('Tips Data set')
+plt.xlabel('Day')
+plt.ylabel('Total Bill')
+plt.show
+
+
+plt.hist(x, bins=4, color='red', edgecolor='yellow')
+plt.ylabel('Frequency')
+plt.xlabel('Total Bill')
+
+
+import matplotlib.pyplot as plt
+cars = ['Awdi','BMW','FORD','Tesla','Jagwar']
+data = [23, 10,35,15, 12]
+plt.pie(data, labels=cars)
+plt.show()
+
+
+import seaborn as sns
+tips = sns.load_dataset('tips')
+
+sns.catplot(x='day',y='total_bill',data=tips)
+
+
+sns.catplot(x='day',y='total_bill',data=tips, kind='box')
+
+
+

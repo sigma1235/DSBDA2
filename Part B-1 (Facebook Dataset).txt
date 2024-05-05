@@ -1,0 +1,96 @@
+Part B-1 (Facebook Dataset)
+
+
+import pandas as pd
+
+df = pd.read_csv('dataset_Facebook.csv', sep=';')
+
+df.head()   #display first n rows of dataset
+
+df.info()
+
+
+
+1. Crete Data Subset :
+
+
+df_subset1 = df_subset1=df[['like','share']]
+print(df_subset1)
+
+
+df[['Type','like']]
+
+
+df_subset2=df[df['like']>100]
+print(df_subset2)
+
+
+df.loc[[1,3,7]]
+
+
+df.iloc[1:3,0:2] #row start: row end, column start : column end
+
+
+
+2. Merge Data :
+
+df.info()
+
+
+subset1 = df.loc[1:5,['Category','like','share','Type']]
+subset1
+
+
+subset2 = df.loc[11:13,['Category','like','share','Type']]
+subset2
+
+
+print(subset1, '\n\n', subset2)
+
+
+merge_set = pd.concat([subset1, subset2], axis=0)
+print(merge_set)
+
+
+
+3. Sorting Data :
+
+
+df.sort_values(by='like',ascending=True)
+
+
+#  Sort data in descending order of 'like' column in Facebbok metric data set and use 'mergesort' method for sorting
+df.sort_values(by ='like',ascending=False, kind='mergsort')
+merge_set.shape
+
+
+
+4. Transposing Data :
+
+#(Convert rows into columns)
+
+result= df.transpose()
+print(result)
+
+
+df.shape
+
+
+result.shape
+
+
+4. Shape and Reshape Data :
+
+
+sub1 = df.loc[0:3,['Category', 'Post Month','Post Hour', 'Paid']]
+sub1.melt(id_vars=['Category'])
+
+
+
+# A PivotTable is an interactive way to quickly summarize large amounts of data
+# pivot() is the complete opposite of melt()
+pivote_table=pd.pivot_table(selective_df,index=['Category'])
+print(pivote_table)
+
+
+pivote_table.shape
